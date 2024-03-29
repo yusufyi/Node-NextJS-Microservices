@@ -1,6 +1,5 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const verifyToken = require("./middleware/verifyToken");
 
 const bodyParser = require("body-parser");
 
@@ -35,12 +34,6 @@ app.post("/login", (req, res) => {
   // Generate JWT token
   const token = jwt.sign({ sub: user.id }, secretKey, { expiresIn: "3 hours" });
   res.json({ access_token: token });
-});
-
-//Protected route using middleware
-app.get("/protected", verifyToken, (req, res) => {
-  //if the middleware passes, return the user is authenticated
-  res.json({ messega: "User is authenticated", user: req.user });
 });
 
 app.listen(port, () => {
