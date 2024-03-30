@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 node_modules/
 <<<<<<< HEAD
 
 =======
 >>>>>>> parent of 63f2e57 (node)
+=======
+**/node_modules
+>>>>>>> Stashed changes
