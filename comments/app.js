@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const verifyToken = require("../auth-service/middleware/verifyToken");
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -8,7 +10,7 @@ const port = 4001;
 
 const commentsByPostId = {};
 
-app.get("/posts/:id/comments", (req, res) => {
+app.get("/posts/:id/comments", verifyToken, (req, res) => {
   res.send(commentsByPostId[req.params.id] || []);
 });
 
