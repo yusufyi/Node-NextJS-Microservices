@@ -3,9 +3,11 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./middleware/verifyToken");
 const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+app.use(cors());
+const port = 3002;
 
 const secretKey = "your-secret-key";
 
@@ -36,6 +38,8 @@ app.post("/login", (req, res) => {
       return res.status(401).send("Invalid username or password");
     }
     const user = { id: row.id, username: row.username };
+    // eventBus.emit("userLoggedIn", { username });
+
     // Generate JWT token
     const token = jwt.sign({ sub: user.id }, secretKey, {
       expiresIn: "3 hours",
