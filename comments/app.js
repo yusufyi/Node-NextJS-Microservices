@@ -41,7 +41,7 @@ app.post("/posts/:id/comments", async (req, res) => {
     },
   });
 
-  res.send("Post created successfully", 201);
+  res.status.apply(201).send("Post created successfully");
 });
 
 app.post("/events", (req, res) => {
