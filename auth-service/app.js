@@ -44,14 +44,17 @@ app.post("/login", (req, res) => {
     const token = jwt.sign({ sub: user.id }, secretKey, {
       expiresIn: "3 hours",
     });
-    res.json({ access_token: token });
+    res.json({ username: user.username, userId: user.id, access_token: token });
   });
 });
 
 //Protected route using middleware
 app.get("/protected", verifyToken, (req, res) => {
   //if the middleware passes, return the user is authenticated
-  res.json({ messega: "User is authenticated", user: req.user });
+  res.json({
+    messega: "User is authenticated",
+    user: req.user,
+  });
 });
 
 app.listen(port, () => {

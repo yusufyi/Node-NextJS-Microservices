@@ -35,10 +35,11 @@ app.get("/posts", verifyToken, (req, res) => {
 
 app.post("/posts", verifyToken, async (req, res) => {
   const { userId, title, content } = req.body;
+  console.log(req.body);
   console.log(userId);
   console.log(title);
   console.log(content);
-  const sql = `INSERT INTO posts(userId, title, content) VALUES(${userId},"${title}", "${content}")`;
+  const sql = `INSERT INTO posts(userId, title, content) VALUES(${req.user.sub},"${title}", "${content}")`;
   console.log(sql); //debugging
   db.run(sql, (err) => {
     if (err) {
