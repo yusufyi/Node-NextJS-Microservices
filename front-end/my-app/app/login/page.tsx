@@ -19,11 +19,12 @@ const loginPage = () => {
       body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
+    console.log('data:', data);
     console.log(data.access_token);
     console.log('login');
     if (data) {
       localStorage.setItem('token', data.access_token);
-      window.location.href = '/';
+     // window.location.href = '/';
     } else {
       setError(data.message);
     }
