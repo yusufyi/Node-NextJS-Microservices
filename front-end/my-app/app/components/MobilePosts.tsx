@@ -1,21 +1,38 @@
 import React from "react";
 import { MobilePostBottom } from "./MobilePostBottom";
+import { comment } from "postcss";
+import dynamic from "next/dynamic";
 
+const MobileComments = dynamic(() => import("./MobileComments"));
 interface MobilePostsProps {
   id: number;
   title: string;
   body: string;
   avatar: string;
+  comments: Comment[];
 }
-
-export const MobilePosts: React.FC<MobilePostsProps> = ({
+interface Comment {
+  id: number;
+  postId: number;
+  comment: string;
+}
+export default function MobilePosts({
   id,
   title,
   body,
   avatar,
-}) => {
+  comments,
+}: MobilePostsProps) {
+  // Your code here
+
+  console.log(comments);
+  const [showComments, setShowComments] = React.useState(false);
+
   return (
-    <article className="flex items-start space-x-2 px-2 pt-2 pb-6">
+    <article
+      className="flex items-start space-x-2 px-2 pt-2 pb-6"
+      onClick={() => setShowComments(!showComments)}
+    >
       <img
         src={avatar}
         alt="Avatar"
@@ -27,8 +44,16 @@ export const MobilePosts: React.FC<MobilePostsProps> = ({
       <div className="w-full ">
         <div className=" font-semibold text-slate-900 ">John Mike</div>
         <div className="text-slate-500"> {body}</div>
-        <MobilePostBottom />
+        {showComments && comments.length > 0 && (
+          <div className="text-slate-500">
+            {comments.map((comment) => (
+              <MobileComments key={comment.id} comment={comment} />
+            ))}
+          </div>
+        )}
+
+        <MobilePostBottom comments={comments} />
       </div>
     </article>
   );
-};
+}
