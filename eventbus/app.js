@@ -20,6 +20,9 @@ app.post("/events", (req, res) => {
   axios.post("http://localhost:3005/events", event).catch((err) => {
     console.log("Error For Post-Services:", err.message);
   });
+  axios.post("http://localhost:4003/events", event).catch((err) => {
+    console.log("Error For Moderation-Services:", err.message);
+  });
   //axios.post("http://localhost:3002/events", event);
 
   res.send({ status: "OK" });

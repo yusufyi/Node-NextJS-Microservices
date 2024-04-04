@@ -7,6 +7,7 @@ const MobileComments = dynamic(() => import("./MobileComments"));
 interface MobilePostsProps {
   id: number;
   title: string;
+  username: string;
   body: string;
   avatar: string;
   comments: Comment[];
@@ -19,13 +20,14 @@ interface Comment {
 export default function MobilePosts({
   id,
   title,
+  username,
   body,
   avatar,
   comments,
 }: MobilePostsProps) {
   // Your code here
 
-  console.log(comments);
+  //console.log(comments);
   const [showComments, setShowComments] = React.useState(false);
 
   return (
@@ -42,7 +44,7 @@ export default function MobilePosts({
       />
 
       <div className="w-full ">
-        <div className=" font-semibold text-slate-900 ">John Mike</div>
+        <div className=" font-semibold text-slate-900 ">{username}</div>
         <div className="text-slate-500"> {body}</div>
         {showComments && comments.length > 0 && (
           <div className="text-slate-500">

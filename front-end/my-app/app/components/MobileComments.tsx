@@ -6,7 +6,11 @@ interface Comment {
   comment: string;
 }
 const MobileComments = ({ comment }: { comment: Comment }) => {
-  return <div className="border-t-2 py-3 ">{comment.comment}</div>;
+  return (
+    <div className="border-t-2 py-3 text-sm  text-slate-400">
+      {comment.comment}
+    </div>
+  );
 };
 
 export default MobileComments;

@@ -22,8 +22,8 @@ export const GetPost = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("data:", data);
-          console.log(data);
+          //console.log("data:", data);
+          //console.log(data);
           setPosts(data);
         })
         .catch((error) => {
