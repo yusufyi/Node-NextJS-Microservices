@@ -20,6 +20,23 @@ export const useUser = () => {
   }
   return context;
 };
+const DummyUser: UserType[] = [
+  {
+    id: 1,
+    username: "Cloé Westhuis",
+    avatar: "https://randomuser.me/api/portraits/women/90.jpg",
+  },
+  {
+    id: 2,
+    username: "Aayushi Kulkarni",
+    avatar: "https://randomuser.me/api/portraits/women/29.jpg",
+  },
+  {
+    id: 3,
+    username: "Alan Harper",
+    avatar: "https://randomuser.me/api/portraits/men/29.jpg",
+  },
+];
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -29,14 +46,24 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchRandomUser = async () => {
       try {
-        const response = await fetch("https://randomuser.me/api/");
-        const data = await response.json();
-        const randomUser = data.results[0];
+        // const response = await fetch("https://randomuser.me/api/");
+        // const data = await response.json();
+        // const randomUser = data.results[0];
+
+        const RandomUser =
+          DummyUser[Math.floor(Math.random() * DummyUser.length)];
         const formattedUser: UserType = {
-          id: randomUser.login.uuid,
-          username: `${randomUser.name.first} ${randomUser.name.last}`,
-          avatar: randomUser.picture.large,
+          id: RandomUser.id,
+          username: RandomUser.username,
+          avatar: RandomUser.avatar,
         };
+
+        // const formattedUser: UserType = {
+        //   id: randomUser.login.uuid,
+        //   username: `${randomUser.name.first} ${randomUser.name.last}`,
+        //   avatar: randomUser.picture.large,
+        // };
+        console.log("Random user:", formattedUser);
         setUser(formattedUser);
       } catch (error) {
         console.error("Error fetching random user:", error);

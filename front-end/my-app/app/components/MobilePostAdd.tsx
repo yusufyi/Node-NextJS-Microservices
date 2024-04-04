@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import { addPost } from "../lib/postApi";
 import { useUser } from "../contexts/UserContext";
+import { useAddPost } from "../contexts/AddPost";
 
 export const MobilePostAdd = () => {
+  const { isAddingPost, setIsAddingPost } = useAddPost();
   const [post, setPost] = useState("");
   const { user } = useUser();
   console.log(user);
@@ -14,6 +16,8 @@ export const MobilePostAdd = () => {
     } catch (error) {
       console.error(error);
     }
+    setIsAddingPost(!isAddingPost);
+    window.location.reload();
   };
 
   return (

@@ -1,10 +1,11 @@
 import React from "react";
-
+import { useUser } from "../contexts/UserContext";
 export const MobileDashboardHeader = () => {
+  const { user } = useUser();
   return (
     <div className=" w-full flex opacity-200  border-b-2 sticky border-slate-200  backdrop-blur bg-slate-200 bg-opacity-25  text-slate-500   top-0  left-0 h-24 justify-between items-center p-4">
       <img
-        src={"https://randomuser.me/api/portraits/men/22.jpg"}
+        src={user?.avatar}
         alt="Avatar"
         width="50"
         height="50"

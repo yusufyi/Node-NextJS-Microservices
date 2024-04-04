@@ -19,9 +19,7 @@ app.post("/posts", async (req, res) => {
 
   const { id, content, username, avatar } = req.body.data;
   console.log(username);
-  sql = `INSERT INTO Posts (id, title, body, username, avatar) VALUES ('${Math.floor(
-    Math.random() * 10
-  )}', '${title}', '${content}', '${username}', '${avatar}')`;
+  sql = `INSERT INTO Posts (userId, title, body, username, avatar) VALUES ('${id}', '${title}', '${content}', '${username}', '${avatar}')`;
   console.log(sql);
   db.run(sql, (err) => {
     if (err) {

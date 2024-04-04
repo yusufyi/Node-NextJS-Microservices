@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useAddPost } from "../contexts/AddPost";
 import { MobilePostAdd } from "./MobilePostAdd";
 import { useUser } from "../contexts/UserContext";
+import router from "next/router";
 const MobilePosts = dynamic(() => import("./MobilePosts"));
 interface Comment {
   id: number;
