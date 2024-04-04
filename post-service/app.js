@@ -20,18 +20,18 @@ app.use(bodyParser.json());
 
 app.post("/posts", async (req, res) => {
   console.log(req.body);
-  res.json(req.body);
   const { content } = req.body;
-  console.log(content); //debugging
 
   if (!content) {
     console.log("Content is required");
-    res.status(400).send("Content is required");
+    return res.status(400).send("Content is required");
   }
+
   await axios.post("http://localhost:4005/events", {
-    type: "PostCreated",
+    type: "PostPending",
     data: req.body,
   });
+  res.status(201).send("Post created successfully");
 });
 
 // app.get("/posts", verifyToken, (req, res) => {

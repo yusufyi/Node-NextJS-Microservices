@@ -1,12 +1,44 @@
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
 const app = express();
 app.use(cors());
+const axios = require("axios");
 
+app.use(bodyParser.json());
 // Create a new SQLite database connection
 const db = new sqlite3.Database("queries.db");
+
+const events = [];
+app.post("/posts", async (req, res) => {
+  console.log("Event received:", req.body);
+  console.log("Post received");
+  res.send("Post received");
+  const title = "test";
+
+  const { id, content, username, avatar } = req.body.data;
+  console.log(username);
+  sql = `INSERT INTO Posts (id, title, body, username, avatar) VALUES ('${Math.floor(
+    Math.random() * 10
+  )}', '${title}', '${content}', '${username}', '${avatar}')`;
+  console.log(sql);
+  db.run(sql, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+
+  await axios.post("http://localhost:4005/events", {
+    type: "PostCompleted",
+    data: {
+      id,
+      postId: req.body.data.id,
+      content,
+      username,
+    },
+  });
+});
 
 // Route to get all posts with their associated comments
 app.get("/posts", (req, res) => {
